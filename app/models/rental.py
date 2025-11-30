@@ -13,7 +13,6 @@ class Rental(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     book_id = Column(Integer, ForeignKey("books.id"), nullable=False)
     rented_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-    due_at = Column(DateTime, nullable=True)
     returned_at = Column(DateTime, nullable=True)
     is_active = Column(Boolean, default=True)
 

@@ -29,7 +29,6 @@ def create_rental(rental_in: schemas.RentalCreate, db: Session = Depends(get_db)
     rental = Rental(
         user_id=rental_in.user_id,
         book_id=rental_in.book_id,
-        due_at=rental_in.due_at,
     )
 
     book.available_copies -= 1

@@ -11,8 +11,8 @@ router = APIRouter(prefix="/books", tags=["books"])
 
 @router.post("/", response_model=schemas.BookInDB, status_code=status.HTTP_201_CREATED)
 def create_book(book_in: schemas.BookCreate, db: Session = Depends(get_db)):
-    if db.query(Book).filter(Book.isbn == book_in.isbn).first():
-        raise HTTPException(status_code=400, detail="Book with this ISBN already exists")
+    if db.query(Book).filter(Book.genre == book_in.genre).first():
+        raise HTTPException(status_code=400, detail="Book with this genre already exists")
 
     available_copies = (
         book_in.available_copies if book_in.available_copies is not None else book_in.total_copies
@@ -21,7 +21,7 @@ def create_book(book_in: schemas.BookCreate, db: Session = Depends(get_db)):
     db_book = Book(
         title=book_in.title,
         author=book_in.author,
-        isbn=book_in.isbn,
+        genre=book_in.genre,
         total_copies=book_in.total_copies,
         available_copies=available_copies,
     )
